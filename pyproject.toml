@@ -8,6 +8,9 @@ version = "0.1.0"
 description = "Turn development activity into reviewable social-media drafts. Human approves only."
 readme = "README.md"
 requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "shoebill-dev27" }]
+keywords = ["devrel", "content-generation", "git", "claude", "social-media"]
 dependencies = [
     "anthropic>=0.40",
     "pydantic>=2.6",
@@ -24,11 +27,17 @@ dev = [
     "black>=24.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/shoebill-dev27/ai-dev-media-engine"
+Repository = "https://github.com/shoebill-dev27/ai-dev-media-engine"
+
 [project.scripts]
 media-engine = "media_engine.cli:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/media_engine"]
+# Ship the Jinja prompt templates so an installed package can still render them.
+artifacts = ["src/media_engine/**/prompts/*.j2"]
 
 [tool.black]
 line-length = 88

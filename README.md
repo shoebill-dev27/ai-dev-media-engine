@@ -63,7 +63,7 @@ cp .env.example .env   # set ANTHROPIC_API_KEY
 # Generate X post drafts from Overseer's last 7 days of commits
 media-engine generate-x \
     --project overseer \
-    --repo /home/shinobu/claude-dev/overseer \
+    --repo /path/to/overseer \
     --since "7 days ago" \
     --count 3
 
@@ -94,3 +94,12 @@ audience, key messages, and hashtags. See `profiles/overseer.yaml`.
 ```sh
 ruff check . && black --check . && pytest
 ```
+
+## Status
+
+Early MVP. The git → X post path works end-to-end; transcript/GitHub sources,
+auto-publishing, and a database-backed review workflow are on the roadmap above.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
