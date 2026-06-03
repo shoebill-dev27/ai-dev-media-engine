@@ -1,0 +1,32 @@
+Here are the launch assets (value themes) synthesized from the project's recent
+development activity:
+
+{% for a in assets %}
+{{ loop.index }}. {{ a.headline }}
+   What the user gets: {{ a.what_achieved }}
+   Why it matters: {{ a.why_built }}
+{% endfor %}
+
+---
+
+Write {{ count }} X (Twitter) post candidates drawn from these themes.
+
+Rules:
+- Write in {{ language }}.
+- Write USER VALUE — what the user can now do and why it matters — NOT a list of
+  commits, files, or implementation detail.
+- Do NOT spread one post per commit. Prioritize the highest-value themes; it is
+  fine to write several posts (different angles) for a strong theme and to skip
+  weak ones entirely.
+- Only mention an internal/technical change if you frame it as user value
+  (trust, safety, stability).
+- Never invent capabilities beyond what the assets state.
+- Each post stands alone and must fit within 280 characters INCLUDING hashtags.
+- Put 1-3 hashtags inline at the end of the post text (do not add them twice):
+  {{ hashtags | join(" ") }}
+- No code blocks. No markdown. Plain post text.
+
+Return ONLY a JSON array, no prose, with this exact shape:
+[
+  {"angle": "<short label>", "text": "<the full post text, hashtags included>", "hashtags": ["#..."]}
+]

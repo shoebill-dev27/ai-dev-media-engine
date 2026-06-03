@@ -1,0 +1,32 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Windows "Mark of the Web" artifacts created when copying files under WSL
+*:Zone.Identifier
+
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Generated content drafts (output artifacts, reviewed by human before posting)
+drafts/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+
+# Editors / agents
+.claude/
+.cursor/
+.vscode/
+.idea/

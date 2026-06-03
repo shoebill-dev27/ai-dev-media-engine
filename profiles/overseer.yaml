@@ -1,0 +1,24 @@
+# Project profile for Overseer.
+# Used to tailor generated content (positioning, audience, key messages, hashtags).
+name: Overseer
+positioning: >-
+  Claude Code Remote Operations Console. Remotely watch multiple local Claude Code
+  (tmux) sessions and push them forward (Y/N/Enter/STOP) from a browser when they
+  are waiting for input — over Tailscale or localhost.
+target_audience: >-
+  Individual developers who run long Claude Code sessions on tmux and do not want
+  to be glued to the terminal just to answer approval prompts.
+key_messages:
+  - You no longer have to sit at the terminal waiting for approval prompts.
+  - See at a glance which sessions are RUNNING / WAITING / FINISHED.
+  - Resolve "waiting for input" remotely from any device.
+  - Screen snapshots are shown with secrets redacted.
+  - Works over Tailscale or localhost; two-step confirmation before sending actions.
+hashtags:
+  - "#ClaudeCode"
+  - "#個人開発"
+  - "#AI駆動開発"
+language: ja
+tone: >-
+  Practical and developer-to-developer. Confident but not hype. Lead with the pain
+  it removes, not the implementation details.
