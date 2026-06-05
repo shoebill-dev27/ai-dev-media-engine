@@ -1,0 +1,34 @@
+# Project profile for Chronicle Forge.
+# Used to tailor generated content (positioning, audience, key messages, hashtags).
+name: Chronicle Forge
+positioning: >-
+  A history-creation RPG / reincarnation roguelite / AI-assisted world simulation.
+  You are the world's only reincarnator: when you die you reincarnate, but the
+  world keeps running — NPCs, factions, and history continue without you. The goal
+  is not to save the world but to intervene in history and witness how your choices
+  shape the future, with a traceable causal link of "my actions created this
+  history." Architectural rule: rules own truth, AI owns prose — state transitions
+  are deterministic and reproducible from a seed; the LLM only narrates.
+target_audience: >-
+  Developers and players drawn to emergent-narrative games, roguelites, and
+  AI-driven world simulation — people who care about systemic storytelling and
+  reproducible, deterministic game design over scripted plots.
+key_messages:
+  - You are the world's only reincarnator; die and reincarnate, but the world keeps living.
+  - Your goal is not to save the world but to bend its history and watch the consequences.
+  - The core is the traceable causal chain — "my actions created this history."
+  - 'rules own truth, AI owns prose: deterministic simulation, AI only narrates.'
+  - A whole world is reproducible from a single seed, then produces a Chronicle and an Ending.
+hashtags:
+  - "#個人開発"
+  - "#ゲーム開発"
+  - "#AI駆動開発"
+audience_lens: >-
+  Player experience — what the player feels and witnesses in the world. Frame
+  value as the play experience (the traces a player's choices leave on history),
+  not the implementation.
+language: ja
+tone: >-
+  Practical and developer-to-developer, with a spark of the game's wonder. Confident
+  but not hype. Lead with the idea that makes it interesting (emergent history from
+  your choices), not the implementation details.

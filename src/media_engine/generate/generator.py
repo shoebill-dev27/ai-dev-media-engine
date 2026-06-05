@@ -1,7 +1,8 @@
-"""Generate X post candidates from Launch Assets using the Claude API.
+"""Generate X post candidates from Experience Summaries using the Claude API.
 
-Posts are written from value themes (Launch Assets), not from raw commits — this
-is what keeps the output from degrading into commit summaries.
+Posts are written from user-facing changes (Experience Summaries), not from raw
+commits — this is what keeps the output from degrading into commit summaries, and
+lets each post lead with the before -> after shift rather than implementation.
 
 Prompt caching is used on the system block (role instructions + the project
 profile), which is stable across runs of the same project.
@@ -14,7 +15,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from media_engine.models import LaunchAsset, XPostCandidate
+from media_engine.models import ExperienceSummary, XPostCandidate
 from media_engine.profiles import ProjectProfile, render_profile_block
 
 _PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
@@ -29,14 +30,15 @@ _SYSTEM_INSTRUCTIONS = (
     "You are a developer-marketing copywriter who writes X (Twitter) posts for "
     "individual developers announcing their own projects. You write in the voice "
     "of the developer: practical, confident, peer-to-peer, never hype. You lead "
-    "with the value a feature unlocks or the pain it removes, never with "
-    "implementation detail. You never invent features that are not supported by "
-    "the provided launch assets."
+    "with WHAT CHANGED for the audience — the value gained and the pain removed — "
+    "using the before/after contrast, and treat implementation detail as a "
+    "closing aside at most. You never invent features that are not supported by "
+    "the provided changes."
 )
 
 
 def build_messages(
-    assets: list[LaunchAsset], profile: ProjectProfile, count: int
+    summaries: list[ExperienceSummary], profile: ProjectProfile, count: int
 ) -> tuple[list[dict], list[dict]]:
     """Return (system_blocks, messages) for the Claude API.
 
@@ -57,7 +59,7 @@ def build_messages(
 
     template = _env.get_template("x_post.md.j2")
     user_text = template.render(
-        assets=assets,
+        summaries=summaries,
         count=count,
         language=profile.language,
         hashtags=profile.hashtags,
@@ -66,7 +68,7 @@ def build_messages(
 
 
 def generate_x_posts(
-    assets: list[LaunchAsset],
+    summaries: list[ExperienceSummary],
     profile: ProjectProfile,
     count: int,
     *,
@@ -74,8 +76,8 @@ def generate_x_posts(
     api_key: str,
     client: object | None = None,
 ) -> list[XPostCandidate]:
-    """Call Claude and return parsed X post candidates derived from the assets."""
-    system_blocks, messages = build_messages(assets, profile, count)
+    """Call Claude and return parsed X post candidates derived from the summaries."""
+    system_blocks, messages = build_messages(summaries, profile, count)
 
     if client is None:
         import anthropic

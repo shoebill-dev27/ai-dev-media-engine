@@ -36,7 +36,7 @@ def write_draft(draft: Draft, drafts_dir: Path | None = None) -> Path:
     lines.append(f"# {draft.project} — X post candidates\n")
 
     if draft.themes:
-        lines.append("**Launch asset themes:**\n")
+        lines.append("**Experience themes:**\n")
         for theme in draft.themes:
             lines.append(f"- {theme}")
         lines.append("")

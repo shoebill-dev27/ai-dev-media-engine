@@ -1,26 +1,33 @@
-Here are the launch assets (value themes) synthesized from the project's recent
-development activity:
+Here are the user-facing changes (experience summaries) synthesized from the
+project's recent development activity:
 
-{% for a in assets %}
-{{ loop.index }}. {{ a.headline }}
-   What the user gets: {{ a.what_achieved }}
-   Why it matters: {{ a.why_built }}
+{% for s in summaries %}
+{{ loop.index }}. {{ s.headline }}
+   Before: {{ s.before }}
+   After: {{ s.after }}
+   Experience: {{ s.experience }}
+{% if s.supporting_detail %}
+   Behind it (supporting only): {{ s.supporting_detail }}
+{% endif %}
 {% endfor %}
 
 ---
 
-Write {{ count }} X (Twitter) post candidates drawn from these themes.
+Write {{ count }} X (Twitter) post candidates drawn from these changes.
 
 Rules:
 - Write in {{ language }}.
-- Write USER VALUE — what the user can now do and why it matters — NOT a list of
-  commits, files, or implementation detail.
-- Do NOT spread one post per commit. Prioritize the highest-value themes; it is
-  fine to write several posts (different angles) for a strong theme and to skip
+- Lead with WHAT CHANGED for the audience, in this priority order:
+    1. the value the audience gains (the "after")
+    2. the problem it removes (the "before")
+    3. the experience it unlocks
+    4. implementation detail — ONLY as a closing aside, never the lead
+- The before -> after contrast is the strongest device; use it. Write "what
+  changed for the user", not "what I implemented".
+- Do NOT spread one post per change. Prioritize the highest-value changes; it is
+  fine to write several posts (different angles) for a strong one and to skip
   weak ones entirely.
-- Only mention an internal/technical change if you frame it as user value
-  (trust, safety, stability).
-- Never invent capabilities beyond what the assets state.
+- Never invent capabilities beyond what the changes state.
 - Each post stands alone and must fit within 280 characters INCLUDING hashtags.
 - Put 1-3 hashtags inline at the end of the post text (do not add them twice):
   {{ hashtags | join(" ") }}

@@ -12,7 +12,7 @@ from datetime import datetime, timezone
 import typer
 
 from media_engine.config import load_settings
-from media_engine.extract import launch_asset_builder
+from media_engine.extract import experience_summary_builder
 from media_engine.extract.story_builder import build_story
 from media_engine.generate.generator import generate_x_posts
 from media_engine.models import Draft
@@ -62,14 +62,16 @@ def generate_x(
     story = build_story(project, events)
 
     if dry_run:
-        # Show the first step (Commit群 -> Launch Asset); posts are written from
-        # the assets, which require a live call.
-        system_blocks, messages = launch_asset_builder.build_messages(story, profile)
-        typer.echo("=== SYSTEM (launch-asset step) ===")
+        # Show the first step (Commit群 -> Experience Summary); posts are written
+        # from the summaries, which require a live call.
+        system_blocks, messages = experience_summary_builder.build_messages(
+            story, profile
+        )
+        typer.echo("=== SYSTEM (experience-summary step) ===")
         for block in system_blocks:
             typer.echo(block["text"])
             typer.echo("")
-        typer.echo("=== USER (launch-asset step) ===")
+        typer.echo("=== USER (experience-summary step) ===")
         typer.echo(messages[0]["content"])
         typer.secho(
             f"\n[dry-run] {len(commits)} commit(s) bundled; no API call made.",
@@ -85,16 +87,16 @@ def generate_x(
         )
         raise typer.Exit(code=1)
 
-    # Step 1: Commit群 -> Launch Asset (value themes).
-    assets = launch_asset_builder.build_launch_assets(
+    # Step 1: Commit群 -> Experience Summary (user-facing changes).
+    summaries = experience_summary_builder.build_experience_summaries(
         story,
         profile,
         model=settings.model,
         api_key=settings.anthropic_api_key,
     )
-    # Step 2: Launch Asset -> Post.
+    # Step 2: Experience Summary -> Post.
     candidates = generate_x_posts(
-        assets,
+        summaries,
         profile,
         count,
         model=settings.model,
@@ -106,7 +108,7 @@ def generate_x(
         content_type="x_post",
         created_at=datetime.now(timezone.utc),
         source_refs=story.event_refs,
-        themes=[a.headline for a in assets],
+        themes=[s.headline for s in summaries],
         candidates=candidates,
     )
     path = write_draft(draft)

@@ -1,9 +1,9 @@
 """Build a Story from DevEvents.
 
-For the MVP this bundles all events in the window into a single Story; the model
-performs the "what/why" synthesis at generation time. The design intent is that a
-``LaunchAsset`` layer (see models) later sits between Story and Draft to make the
-"what was achieved / why" explicit — that is out of MVP scope.
+This bundles all events in the window into a single Story; the model performs the
+value synthesis later. The ``ExperienceSummary`` layer (see models) sits between
+Story and Draft and makes each user-facing change explicit as a before -> after
+shift. Story building stays a deterministic concatenation — no model, no profile.
 """
 
 from __future__ import annotations

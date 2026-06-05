@@ -1,0 +1,73 @@
+Here is recent development activity for the project (commit messages and diffs,
+already redacted).
+
+Period: {{ period_start }} to {{ period_end }}
+
+Development activity:
+{{ material }}
+
+---
+
+Turn this activity into a SMALL number (2-5) of user-facing CHANGES worth
+communicating — "experience summaries". Each one is a single change expressed as
+what it FEELS like for the audience, not what was implemented.
+
+Rules:
+- Do NOT create one item per commit. GROUP related commits into a single change.
+- Adopt the project's audience lens (see the profile). Speak about the PLAYER's,
+  USER's, or DECISION-MAKER's experience accordingly. If no lens is given, infer
+  it from the positioning (game -> player experience, dev tool -> user
+  experience, analytics -> decision-making experience).
+- Make the CHANGE explicit as a before -> after shift:
+    before = the state / pain the audience lived with
+    after  = the state they get now
+  Keep both short and concrete, in the audience's words — describe the situation,
+  never write "added X" or "implemented Y".
+- Name the experience the change unlocks: one concrete moment the audience now
+  lives.
+- TRANSLATION IS THE GATE: internal changes (refactors, retries, cookies,
+  security hardening, bug fixes) are kept ONLY if you can fill a real
+  audience-facing before/after and experience for them. If you cannot, DROP the
+  change entirely.
+- Put the implementation behind the change in "supporting_detail" — a short,
+  SUBORDINATE note only. Never let it become the point.
+
+LENS DISCIPLINE — stay inside the audience's perspective:
+- A theme must be expressible from the audience's point of view (for a game, the
+  PLAYER's).
+- If the primary value is only interesting to developers — deterministic
+  architecture, API-key-free execution, reproducibility, seed management,
+  repository structure, implementation details, framework choices — do NOT create
+  a standalone experience summary for it.
+- Such information may appear ONLY as supporting_detail attached to a
+  player-facing experience.
+- If the audience would not care about the change directly, DISCARD the theme.
+- Prefer FEWER themes over inventing developer-facing ones. Quality over coverage.
+
+Player-lens examples:
+- BAD (developer-facing, do not stand these alone):
+    "seed42 can be reproduced with one command"
+    "the game works without an API key"
+    "the rule engine decides endings"
+- GOOD (player-facing):
+    "your choices remain meaningful across multiple lives"
+    "the ending can be traced back to decisions you actually made"
+    "the world keeps changing even after your character dies"
+
+Examples of the before -> after shift intended:
+- OAuth retry + secure cookie + HTTPS -> before: "approving from your phone broke
+  on flaky networks" / after: "you approve from anywhere and it goes through"
+- NPC memory + reputation -> before: "your choices left no mark on the world" /
+  after: "the world remembers what you did"
+
+Return ONLY a JSON array, no prose, with this exact shape:
+[
+  {
+    "headline": "<short change-oriented title>",
+    "before": "<the state / pain before, in the audience's words>",
+    "after": "<the state after, in the audience's words>",
+    "experience": "<the concrete experience this unlocks, in the audience lens>",
+    "supporting_detail": "<short, subordinate note on what was built>",
+    "source_refs": ["<sha>", "..."]
+  }
+]
