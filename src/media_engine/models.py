@@ -1,6 +1,6 @@
 """Core data models for the pipeline.
 
-The flow is: ``RawCommit`` -> ``DevEvent`` -> ``Story`` -> (design: ``LaunchAsset``)
+The flow is: ``RawCommit`` -> ``DevEvent`` -> ``Story`` -> ``ExperienceSummary``
 -> ``Draft``. Everything is plain pydantic so it stays serializable and testable.
 """
 
@@ -51,20 +51,26 @@ class Story(BaseModel):
     material: str = ""
 
 
-class LaunchAsset(BaseModel):
-    """Design-only placeholder (NOT used by the MVP pipeline).
+class ExperienceSummary(BaseModel):
+    """The unit between ``Story`` and ``Draft``: one user-facing change, framed
+    as experience rather than implementation.
 
-    The intended layer between ``Story`` and ``Draft``: it captures *what was
-    achieved* and *why it was built*, rather than a list of commits. Readers care
-    about this unit, not the raw activity. Documented here so the data flow is
-    explicit; generation does not depend on it yet.
+    Each summary expresses a single change as a ``before`` -> ``after`` shift and
+    the ``experience`` it unlocks for the audience (player / user /
+    decision-maker, per the project's audience lens). The implementation behind
+    it is kept only as a subordinate ``supporting_detail``. Changes that cannot be
+    translated into audience value are dropped before this stage, so every summary
+    here is worth communicating.
     """
 
     project: str
+    audience_lens: str = ""
     headline: str = ""
-    what_achieved: str = ""
-    why_built: str = ""
-    source_story_refs: list[str] = Field(default_factory=list)
+    before: str = ""
+    after: str = ""
+    experience: str = ""
+    supporting_detail: str = ""
+    source_refs: list[str] = Field(default_factory=list)
 
 
 class XPostCandidate(BaseModel):

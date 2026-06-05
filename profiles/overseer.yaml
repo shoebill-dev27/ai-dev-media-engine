@@ -18,6 +18,10 @@ hashtags:
   - "#ClaudeCode"
   - "#個人開発"
   - "#AI駆動開発"
+audience_lens: >-
+  Operator / developer experience — what it feels like to run and steer Claude
+  Code sessions remotely. Frame value as the operating experience (staying in
+  flow, approving from anywhere with confidence), not the implementation.
 language: ja
 tone: >-
   Practical and developer-to-developer. Confident but not hype. Lead with the pain

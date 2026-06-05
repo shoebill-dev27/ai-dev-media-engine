@@ -26,6 +26,9 @@ class ProjectProfile(BaseModel):
     target_audience: str
     key_messages: list[str] = Field(default_factory=list)
     hashtags: list[str] = Field(default_factory=list)
+    # The lens through which value is framed (player / user / decision-maker
+    # experience). Optional: if absent, the model infers it from positioning.
+    audience_lens: str | None = None
     # Language the generated content should be written in.
     language: str = "ja"
     tone: str | None = None
@@ -42,6 +45,8 @@ def render_profile_block(profile: ProjectProfile) -> str:
         + "".join(f"    - {m}\n" for m in profile.key_messages)
         + f"- Hashtags: {' '.join(profile.hashtags)}\n"
     )
+    if profile.audience_lens:
+        block += f"- Audience lens: {profile.audience_lens}\n"
     if profile.tone:
         block += f"- Tone: {profile.tone}\n"
     return block
